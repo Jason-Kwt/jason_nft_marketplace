@@ -4,7 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { Navbar, Footer } from '../components';
 
 import '../styles/globals.css';
-
+// test
 const MyApp = ({ Component, pageProps }) => (
   <ThemeProvider attribute="class">
 
