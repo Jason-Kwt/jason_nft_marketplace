@@ -7,14 +7,16 @@ import '../styles/globals.css';
 // test
 const MyApp = ({ Component, pageProps }) => (
   <ThemeProvider attribute="class">
-
     <div className="dark:bg-nft-dark bg-white min-h-screen">
       <Navbar />
       <Component {...pageProps} />
       <Footer />
     </div>
 
-    <Script src="https://kit.fontawesome.com/28b8cbb7b4.js" crossOrigin="anonymous" />
+    <Script
+      src="https://kit.fontawesome.com/28b8cbb7b4.js"
+      crossOrigin="anonymous"
+    />
   </ThemeProvider>
 );
 
