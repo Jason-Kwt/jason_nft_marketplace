@@ -1,16 +1,22 @@
-import React, { useMemo } from 'react';
-import { useState, useEffect, useContext, useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { useDropzone } from 'react-dropzone';
-import Image from 'next/image';
-import { useTheme } from 'next-themes';
+import React, { useMemo } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
+import { useRouter } from "next/router";
+import { useDropzone } from "react-dropzone";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
-import { Button } from '../components';
-import images from '../assets';
+import { Button, Input } from "../components";
+import images from "../assets";
 
 const CreateNFT = () => {
   const [fileUrl, setFileUrl] = useState(null);
   const { theme } = useTheme();
+
+  const [formInput, setFormInput] = useState({
+    price: "",
+    name: "",
+    description: "",
+  });
 
   const onDrop = useCallback(() => {
     // upload image to the ipfs
@@ -24,19 +30,21 @@ const CreateNFT = () => {
     isDragReject,
   } = useDropzone({
     onDrop,
-    accept: 'image/*',
+    accept: "image/*",
     maxSize: 5000000,
   });
 
   const fileStyle = useMemo(
     () =>
       `dark:bg-nft-black-1 bg-white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed 
-      ${isDragActive && 'border-file-active'}
-      ${isDragAccept && 'border-file-accept'}
-      ${isDragReject && 'border-file-reject'}
+      ${isDragActive && "border-file-active"}
+      ${isDragAccept && "border-file-accept"}
+      ${isDragReject && "border-file-reject"}
     `,
-    [isDragActive, isDragAccept, isDragReject],
+    [isDragActive, isDragAccept, isDragReject]
   );
+
+  console.log(formInput);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -44,7 +52,6 @@ const CreateNFT = () => {
         <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">
           Create new NFT
         </h1>
-
         <div className="mt-16">
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
             Upload File
@@ -63,7 +70,7 @@ const CreateNFT = () => {
                     height={100}
                     objectFit="contain"
                     alt="file upload"
-                    className={theme === 'light' && 'filter invert'}
+                    className={theme === "light" && "filter invert"}
                   />
                 </div>
                 <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm">
@@ -83,6 +90,39 @@ const CreateNFT = () => {
               </aside>
             )}
           </div>
+        </div>
+
+        <Input
+          inputType="input"
+          title="Name"
+          placeholder="NFT Name"
+          handleClick={(e) => {
+            setFormInput({ ...formInput, name: e.target.value });
+          }}
+        />
+        <Input
+          inputType="textarea"
+          title="Description"
+          placeholder="NFT Description"
+          handleClick={(e) => {
+            setFormInput({ ...formInput, description: e.target.value });
+          }}
+        />
+        <Input
+          inputType="number"
+          title="Price"
+          placeholder="NFT Price"
+          handleClick={(e) => {
+            setFormInput({ ...formInput, price: e.target.value });
+          }}
+        />
+
+        <div className="mt-7 w-full flex justify-end">
+          <Button
+            btnName="Create NFT"
+            classStyles="rounded-xl"
+            handleClick={() => {}}
+          />
         </div>
       </div>
     </div>
